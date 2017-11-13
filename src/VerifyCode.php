@@ -6,7 +6,7 @@
  * Time: 下午10:24
  */
 
-namespace easyswoole\VerifyCode;
+namespace easySwoole\VerifyCode;
 
 
 class VerifyCode
