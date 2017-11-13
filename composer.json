@@ -1,0 +1,17 @@
+
+{
+    "name": "easyswoole/verifyCode",
+    "authors": [
+      {
+        "name": "kiss291323003"
+      }
+    ],
+    "require": {
+        "php":                    ">=5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "easyswoole\\verifyCode": "src"
+        }
+    }
+}
