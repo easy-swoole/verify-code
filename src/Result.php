@@ -1,19 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: yf
- * Date: 2017/11/13
- * Time: 下午10:57
- */
+// +----------------------------------------------------------------------
+// | easySwoole [ use swoole easily just like echo "hello world" ]
+// +----------------------------------------------------------------------
+// | WebSite: https://www.easyswoole.com
+// +----------------------------------------------------------------------
+// | Welcome Join QQGroup 633921431
+// +----------------------------------------------------------------------
 
 namespace easySwoole\VerifyCode;
-
 
 class Result
 {
     private $imageBody;
     private $imageStr;
-    function __construct($image,$str)
+
+    function __construct($image, $str)
     {
         $this->imageBody = $image;
         $this->imageStr = $str;
@@ -35,7 +36,8 @@ class Result
         return $this->imageStr;
     }
 
-    function getMineType(){
+    function getMineType()
+    {
         return 'image/png';
     }
 }
