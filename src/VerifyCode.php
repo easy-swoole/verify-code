@@ -36,6 +36,7 @@ class VerifyCode
         $this->imageL || $this->imageL = $this->length * $this->fontSize * 1.5 + $this->fontSize * 1.5;
         $this->imageH || $this->imageH = $this->fontSize * 2;
         $this->fontColor || $this->fontColor = [mt_rand(1, 150), mt_rand(1, 150), mt_rand(1, 150)];
+        $this->backColor || $this->backColor = [255, 255, 255];
     }
 
     /**
@@ -58,7 +59,7 @@ class VerifyCode
         // 创建空白画布
         $this->imInstance = imagecreate($this->imageL, $this->imageH);
         // 设置背景颜色
-        imagecolorallocate($this->imInstance, 243, 251, 254);
+        $this->backColor = imagecolorallocate($this->imInstance, $this->backColor[0], $this->backColor[1], $this->backColor[2]);
         // 设置字体颜色
         $this->fontColor = imagecolorallocate($this->imInstance, $this->fontColor[0], $this->fontColor[1], $this->fontColor[2]);
         // 画干扰噪点
