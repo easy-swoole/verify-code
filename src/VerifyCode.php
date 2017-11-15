@@ -33,7 +33,7 @@ class VerifyCode
 
         // 初始化配置项
         $this->useFont || $this->useFont = $fonts[array_rand($fonts)];
-        $this->imageL || $this->imageL = $this->length * $this->fontSize * 1.5 + $this->fontSize * 1.5;
+        $this->imageL || $this->imageL = $this->length * $this->fontSize * 1.5 + $this->length * $this->fontSize / 2;
         $this->imageH || $this->imageH = $this->fontSize * 2;
         $this->fontColor || $this->fontColor = [mt_rand(1, 150), mt_rand(1, 150), mt_rand(1, 150)];
         $this->backColor || $this->backColor = [255, 255, 255];
@@ -70,9 +70,9 @@ class VerifyCode
         // 绘验证码
         $codeNX = 0; // 验证码第N个字符的左边距
         for ($i = 0; $i < $this->length; $i++) {
-            $codeNX += mt_rand($this->fontSize * 1.2, $this->fontSize * 1.6);
+            $codeNX += mt_rand($this->fontSize * 1.2, $this->fontSize * 1.4);
             // 写一个验证码字符
-            imagettftext($this->imInstance, $this->fontSize, mt_rand(-40, 70), $codeNX, $this->fontSize * 1.5, $this->fontColor, $this->useFont, $Code[$i]);
+            imagettftext($this->imInstance, $this->fontSize, mt_rand(-50, 50), $codeNX, $this->fontSize * 1.5, $this->fontColor, $this->useFont, $Code[$i]);
         }
 
         // 输出验证码结果集
