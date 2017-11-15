@@ -33,7 +33,7 @@ class VerifyCode
 
         // 初始化配置项
         $this->useFont || $this->useFont = $fonts[array_rand($fonts)];
-        $this->imageL || $this->imageL = $this->length * $this->fontSize * 1.5 + $this->length * $this->fontSize / 2;
+        $this->imageL || $this->imageL = $this->length * $this->fontSize * 1.5 + $this->fontSize / 2;
         $this->imageH || $this->imageH = $this->fontSize * 2;
         $this->fontColor || $this->fontColor = [mt_rand(1, 150), mt_rand(1, 150), mt_rand(1, 150)];
         $this->backColor || $this->backColor = [255, 255, 255];
@@ -50,8 +50,8 @@ class VerifyCode
         // 如果传入了验证码则要重置参数
         if (!is_null($Code)) {
             $this->length = strlen($Code);
-            $this->imageL = $this->length * $this->fontSize * 1.5 + $this->fontSize * 1.5;
-            $this->imageH = $this->fontSize * 2;
+            $this->imageL || $this->imageL = $this->length * $this->fontSize * 1.5 + $this->fontSize / 2;
+            $this->imageH || $this->imageH = $this->fontSize * 2;
         } else {
             $Code = substr(str_shuffle($this->charset), 0, $this->length);
         }
