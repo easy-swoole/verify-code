@@ -52,7 +52,7 @@ class Conf extends SplBean
      * @param bool $useCurve
      * @return Conf
      */
-    public function setUseCurve($useCurve)
+    public function setUseCurve($useCurve = true)
     {
         is_bool($useCurve) && $this->useCurve = $useCurve;
         return $this;
@@ -63,7 +63,7 @@ class Conf extends SplBean
      * @param bool $useNoise
      * @return Conf
      */
-    public function setUseNoise($useNoise)
+    public function setUseNoise($useNoise = true)
     {
         is_bool($useNoise) && $this->useNoise = $useNoise;
         return $this;
