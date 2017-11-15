@@ -76,10 +76,18 @@ $Conf->setFontSize(30);
 // 设置生成验证码位数
 $Conf->setLength(4);
 ```
+
+#### 链式调用
+为了更流畅的进行设置，所有的配置项均支持链式调用
+
+```
+$Conf = new Conf();
+$Conf->setUseNoise()->setUseCurve()->setFontSize(30);
+```
+
 ------
 
-可以使用上方的动态配置，将设置好的配置类传入给验证码类
-
+可以使用上方的动态配置，将设置好的配置类传入给验证码类，
 ```
 $Conf = new Conf();
 $Conf->setFontSize(30);
