@@ -1,55 +1,100 @@
 验证码组件
 ------
 
-用于生产验证码，支持自定义验证码字体
+用于生产验证码，支持自定义验证码字体，使用Composer安装
 
-配置
+```
+composer require easyswoole/verifycode
+```
+
+配置定义
 ------
 
 组件本身提供了默认配置，即使不做任何设置也可以直接生成验证码，需要对验证码进行自定义配置可以使用组件提供的`Conf`类进行动态配置
 
 ```
 use easySwoole\VerifyCode\Conf;
-
 $Conf = new Conf();
-
-// 验证码字符长度 默认生成4位
-$Conf->length = 4;
-
-// 指定字体文件 默认随机
-$Conf->useFont = '/path/to/file.ttf';
-
-// 验证码的文字颜色[R,G,B] 默认随机
-$Conf->fontColor = [135, 135, 135];
-
-// 验证码图片宽度 默认动态适应
-$Conf->imageL = 400;
-
-// 验证码图片高度 默认动态适应
-$Conf->imageH = 200;
-
-// 验证码字符集 默认数字+大小写字母
-$Conf->charset = '1234567890';
-
-// 开启干扰噪点 默认不开启
-$Conf->useNoise = false;
-
-// 开启混淆曲线 默认不开启
-$Conf->useCurve = false;
-
-// 添加字体到验证码字体库 生成时随机
-$Conf->fonts = ['/path/to/file.ttf', '/path/to/file2.ttf'];
-
-// 验证码字体大小
-$Conf->fontSize = 25;
-
 ```
 
-传入配置有两种方法，可以使用上方的动态配置，将设置好的配置类传入给验证码类
+#### 设置字符集合
+可以自定义验证码生成使用的字符集合设置后从集合中随机选取，不设置则从`[0-9A-Za-z]`中随机选取
+
+```
+$Conf->setCharset('123456ABCD');
+```
+
+#### 设置背景色
+设置验证码的背景颜色，不设置默认使用白色，支持使用完整HEX，缩写HEX和RGB值设置
+
+```
+$Conf->setBackColor('#3A5FCD');
+$Conf->setBackColor('CCC');
+$Conf->setBackColor([30, 144, 255]);
+```
+
+#### 设置文字颜色
+设置验证码的背景颜色，不设置则随机生成一个颜色，支持使用完整HEX，缩写HEX和RGB值设置
+
+```
+$Conf->setFontColor('#3A5FCD');
+$Conf->setFontColor('CCC');
+$Conf->setFontColor([30, 144, 255]);
+```
+
+#### 设置混淆
+支持两种混淆方式，默认两种混淆都是关闭的，需要手动开启
+
+```
+// 开启或关闭混淆曲线
+$Conf->setUseCurve();
+// 开启或关闭混淆噪点
+$Conf->setUseNoise();
+```
+
+#### 设置字体
+默认验证码类已经带有6种字体，如果需要增加自己的字体库来提高识别难度，或者指定使用的字体，可以如下设置，注意字体路径需要使用绝对路径，即文件的完整路径
+
+```
+// 增加单个字体传入路径字符串
+$Conf->setFonts('path/to/file.ttf');
+// 增加多个字体传入路径的数组
+$Conf->setFonts(['path/to/file1.ttf', 'path/to/file2.ttf']);
+```
+
+```
+// 指定生成使用的字体文件
+$Conf->setUseFont('path/to/file.ttf');
+```
+
+#### 其他设置
+可以指定图片宽高，字体大小，随机生成的验证码位数等
+
+```
+// 设置图片的宽度
+$Conf->setImageWidth(400);
+// 设置图片的高度
+$Conf->setImageHeight(200);
+// 设置生成字体大小
+$Conf->setFontSize(30);
+// 设置生成验证码位数
+$Conf->setLength(4);
+```
+
+#### 链式调用
+为了更流畅的进行设置，所有的配置项均支持链式调用
 
 ```
 $Conf = new Conf();
-$Conf->length = 5;
+$Conf->setUseNoise()->setUseCurve()->setFontSize(30);
+```
+
+------
+
+可以使用上方的动态配置，将设置好的配置类传入给验证码类，
+```
+$Conf = new Conf();
+$Conf->setFontSize(30);
 $VCode = new VerifyCode($Conf);
 ```
 

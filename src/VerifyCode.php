@@ -33,9 +33,10 @@ class VerifyCode
 
         // 初始化配置项
         $this->useFont || $this->useFont = $fonts[array_rand($fonts)];
-        $this->imageL || $this->imageL = $this->length * $this->fontSize * 1.5 + $this->fontSize * 1.5;
+        $this->imageL || $this->imageL = $this->length * $this->fontSize * 1.5 + $this->fontSize / 2;
         $this->imageH || $this->imageH = $this->fontSize * 2;
         $this->fontColor || $this->fontColor = [mt_rand(1, 150), mt_rand(1, 150), mt_rand(1, 150)];
+        $this->backColor || $this->backColor = [255, 255, 255];
     }
 
     /**
@@ -49,8 +50,8 @@ class VerifyCode
         // 如果传入了验证码则要重置参数
         if (!is_null($Code)) {
             $this->length = strlen($Code);
-            $this->imageL = $this->length * $this->fontSize * 1.5 + $this->fontSize * 1.5;
-            $this->imageH = $this->fontSize * 2;
+            $this->imageL || $this->imageL = $this->length * $this->fontSize * 1.5 + $this->fontSize / 2;
+            $this->imageH || $this->imageH = $this->fontSize * 2;
         } else {
             $Code = substr(str_shuffle($this->charset), 0, $this->length);
         }
@@ -58,7 +59,7 @@ class VerifyCode
         // 创建空白画布
         $this->imInstance = imagecreate($this->imageL, $this->imageH);
         // 设置背景颜色
-        imagecolorallocate($this->imInstance, 243, 251, 254);
+        $this->backColor = imagecolorallocate($this->imInstance, $this->backColor[0], $this->backColor[1], $this->backColor[2]);
         // 设置字体颜色
         $this->fontColor = imagecolorallocate($this->imInstance, $this->fontColor[0], $this->fontColor[1], $this->fontColor[2]);
         // 画干扰噪点
@@ -69,9 +70,9 @@ class VerifyCode
         // 绘验证码
         $codeNX = 0; // 验证码第N个字符的左边距
         for ($i = 0; $i < $this->length; $i++) {
-            $codeNX += mt_rand($this->fontSize * 1.2, $this->fontSize * 1.6);
+            $codeNX += mt_rand($this->fontSize * 1.2, $this->fontSize * 1.4);
             // 写一个验证码字符
-            imagettftext($this->imInstance, $this->fontSize, mt_rand(-40, 70), $codeNX, $this->fontSize * 1.5, $this->fontColor, $this->useFont, $Code[$i]);
+            imagettftext($this->imInstance, $this->fontSize, mt_rand(-50, 50), $codeNX, $this->fontSize * 1.5, $this->fontColor, $this->useFont, $Code[$i]);
         }
 
         // 输出验证码结果集
