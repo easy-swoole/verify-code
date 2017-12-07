@@ -21,19 +21,33 @@ class Conf extends SplBean
 {
 
     public $charset   = '1234567890AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'; // 字母表
-    public $useCurve  = false; // 混淆曲线
-    public $useNoise  = false; // 随机噪点
-    public $useFont   = null;  // 指定字体
-    public $fontColor = null;  // 字体颜色
-    public $backColor = null;  // 背景颜色
-    public $imageL    = null;  // 图片宽度
-    public $imageH    = null;  // 图片高度
-    public $fonts     = [];    // 额外字体
-    public $fontSize  = 25;    // 字体大小
-    public $length    = 4;     // 生成位数
+    public $useCurve  = false;         // 混淆曲线
+    public $useNoise  = false;         // 随机噪点
+    public $useFont   = null;          // 指定字体
+    public $fontColor = null;          // 字体颜色
+    public $backColor = null;          // 背景颜色
+    public $imageL    = null;          // 图片宽度
+    public $imageH    = null;          // 图片高度
+    public $fonts     = [];            // 额外字体
+    public $fontSize  = 25;            // 字体大小
+    public $length    = 4;             // 生成位数
+    public $mime      = MIME::PNG;     // 设置类型
 
     protected function initialize()
     {
+    }
+
+    /**
+     * 设置图片格式
+     * @param $MimeType
+     * @author : evalor <master@evalor.cn>
+     * @return Conf
+     */
+    public function setMimeType($MimeType)
+    {
+        $allowMime = [MIME::PNG, MIME::BMP, MIME::GIF, MIME::JPG];
+        if (in_array($MimeType, $allowMime)) $this->mime = $MimeType;
+        return $this;
     }
 
     /**
