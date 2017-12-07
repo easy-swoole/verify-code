@@ -45,7 +45,7 @@ class Conf extends SplBean
      */
     public function setMimeType($MimeType)
     {
-        $allowMime = [MIME::PNG, MIME::BMP, MIME::GIF, MIME::JPG];
+        $allowMime = [MIME::PNG, MIME::GIF, MIME::JPG];
         if (in_array($MimeType, $allowMime)) $this->mime = $MimeType;
         return $this;
     }

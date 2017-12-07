@@ -77,11 +77,13 @@ class VerifyCode
 
         // 输出验证码结果集
         ob_start();
-        imagepng($this->imInstance);
+        $func = 'image' . MIME::getExtensionName($this->mime);
+        $func($this->imInstance);
+
         $image = ob_get_contents();
         ob_end_clean();
         imagedestroy($this->imInstance);
-        return new Result($image, $Code);
+        return new Result($image, $Code, $this->mime);
     }
 
     /**
