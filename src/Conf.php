@@ -7,9 +7,9 @@
 // | Welcome Join QQGroup 633921431
 // +----------------------------------------------------------------------
 
-namespace easySwoole\VerifyCode;
+namespace EasySwoole\VerifyCode;
 
-use Core\Component\Spl\SplBean;
+use EasySwoole\Core\Component\Spl\SplBean;
 
 /**
  * 验证码配置文件
