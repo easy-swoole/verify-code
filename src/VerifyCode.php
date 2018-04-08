@@ -7,7 +7,7 @@
 // | Welcome Join QQGroup 633921431
 // +----------------------------------------------------------------------
 
-namespace easySwoole\VerifyCode;
+namespace EasySwoole\VerifyCode;
 
 /**
  * 验证码处理类
