@@ -9,12 +9,12 @@
 
 namespace EasySwoole\VerifyCode;
 
-use EasySwoole\Core\Component\Spl\SplBean;
+use EasySwoole\Spl\SplBean;
 
 /**
  * 验证码配置文件
  * Class VerifyCodeConf
- * @author : evalor <master@evalor.cn>
+ * @author  : evalor <master@evalor.cn>
  * @package Vendor\VerifyCode
  */
 class Conf extends SplBean
@@ -33,10 +33,6 @@ class Conf extends SplBean
     public $length    = 4;             // 生成位数
     public $mime      = MIME::PNG;     // 设置类型
 
-    protected function initialize()
-    {
-    }
-
     /**
      * 设置图片格式
      * @param $MimeType
@@ -45,7 +41,7 @@ class Conf extends SplBean
      */
     public function setMimeType($MimeType)
     {
-        $allowMime = [MIME::PNG, MIME::GIF, MIME::JPG];
+        $allowMime = [ MIME::PNG, MIME::GIF, MIME::JPG ];
         if (in_array($MimeType, $allowMime)) $this->mime = $MimeType;
         return $this;
     }
