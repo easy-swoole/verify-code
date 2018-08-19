@@ -78,7 +78,7 @@ class VerifyCode
         // 输出验证码结果集
         $this->temp = rtrim(str_replace('\\', '/', $this->temp), '/') . '/';
         mt_srand();
-        $filePath = $this->temp . date('Y-m-d H:i:s') . rand(1000,9999) .MIME::getExtensionName($this->mime);
+        $filePath = $this->temp . date('YmdHis') . rand(1000,9999) .'.'.MIME::getExtensionName($this->mime);
         $func = 'image' . MIME::getExtensionName($this->mime);
         $func($this->imInstance, $filePath);
         imagedestroy($this->imInstance);
