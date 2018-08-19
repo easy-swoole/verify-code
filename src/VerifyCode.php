@@ -56,6 +56,8 @@ class VerifyCode
             $Code = substr(str_shuffle($this->charset), 0, $this->length);
         }
 
+        $Code = strval($Code);
+
         // 创建空白画布
         $this->imInstance = imagecreate($this->imageL, $this->imageH);
         // 设置背景颜色
