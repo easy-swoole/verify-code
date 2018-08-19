@@ -32,6 +32,12 @@ class Conf extends SplBean
     public $fontSize  = 25;            // 字体大小
     public $length    = 4;             // 生成位数
     public $mime      = MIME::PNG;     // 设置类型
+    public $temp      = EASYSWOOLE_ROOT . '/Temp/Captcha/';  // 设置缓存目录
+
+    public function setTemp($temp){
+        if (!is_dir($temp)) mkdir($temp,0755) && chmod($temp,0755);
+        $this->temp = $temp;
+    }
 
     /**
      * 设置图片格式

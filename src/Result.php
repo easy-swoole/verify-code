@@ -20,12 +20,14 @@ class Result
     private $CaptchaByte;  // 验证码图片
     private $CaptchaMime;  // 验证码类型
     private $CaptchaCode;  // 验证码内容
+    private $CaptchaFile;  // 验证码文件
 
-    function __construct($Byte, $Code, $Mime)
+    function __construct($Byte, $Code, $Mime,$File)
     {
         $this->CaptchaByte = $Byte;
         $this->CaptchaMime = $Mime;
         $this->CaptchaCode = $Code;
+        $this->CaptchaFile = $File;
     }
 
     /**
@@ -67,5 +69,14 @@ class Result
     function getImageMime()
     {
         return $this->CaptchaMime;
+    }
+
+    /**
+     * 获取验证码文件路径
+     * @author: eValor < master@evalor.cn >
+     */
+    function getImageFile()
+    {
+        return $this->CaptchaFile;
     }
 }

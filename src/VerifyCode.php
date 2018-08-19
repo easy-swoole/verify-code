@@ -76,14 +76,13 @@ class VerifyCode
         }
 
         // 输出验证码结果集
-        ob_start();
+        $this->temp = rtrim(str_replace('\\', '/', $this->temp), '/') . '/';
+        mt_srand();
+        $filePath = $this->temp . date('Y-m-d H:i:s') . rand(1000,9999) .MIME::getExtensionName($this->mime);
         $func = 'image' . MIME::getExtensionName($this->mime);
-        $func($this->imInstance);
-
-        $image = ob_get_contents();
-        ob_end_clean();
+        $func($this->imInstance, $filePath);
         imagedestroy($this->imInstance);
-        return new Result($image, $Code, $this->mime);
+        return new Result(file_get_contents($filePath), $Code, $this->mime, $filePath);
     }
 
     /**
