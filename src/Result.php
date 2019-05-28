@@ -77,6 +77,9 @@ class Result
      */
     function getImageFile()
     {
+        if(!file_exists($this->CaptchaFile)){
+            file_put_contents($this->CaptchaFile, $this->CaptchaByte);
+        }
         return $this->CaptchaFile;
     }
 }
