@@ -4,7 +4,7 @@
 用于生产验证码，支持自定义验证码字体，使用Composer安装
 
 ```
-composer require easyswoole/verifycode
+composer require easyswoole/verifycode=3.x
 ```
 
 配置定义
