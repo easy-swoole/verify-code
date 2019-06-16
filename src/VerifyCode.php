@@ -82,9 +82,12 @@ class VerifyCode
         mt_srand();
         $filePath = $this->temp . date('YmdHis') . rand(1000,9999) .'.'.MIME::getExtensionName($this->mime);
         $func = 'image' . MIME::getExtensionName($this->mime);
-        $func($this->imInstance, $filePath);
+        ob_start();
+        $func($this->imInstance);
+        $file = ob_get_contents();
+        ob_end_clean();
         imagedestroy($this->imInstance);
-        return new Result(file_get_contents($filePath), $Code, $this->mime, $filePath);
+        return new Result($file, $Code, $this->mime, $filePath);
     }
 
     /**
