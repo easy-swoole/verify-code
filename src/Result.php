@@ -17,17 +17,33 @@ namespace EasySwoole\VerifyCode;
  */
 class Result
 {
-    private $CaptchaByte;  // 验证码图片
-    private $CaptchaMime;  // 验证码类型
-    private $CaptchaCode;  // 验证码内容
-    private $CaptchaFile;  // 验证码文件
+    private $captchaByte;  // 验证码图片
+    private $captchaMime;  // 验证码类型
+    private $captchaCode;  // 验证码内容
+    private $createTime;
 
-    function __construct($Byte, $Code, $Mime,$File)
+    function __construct($Byte, $Code, $Mime)
     {
-        $this->CaptchaByte = $Byte;
-        $this->CaptchaMime = $Mime;
-        $this->CaptchaCode = $Code;
-        $this->CaptchaFile = $File;
+        $this->captchaByte = $Byte;
+        $this->captchaMime = $Mime;
+        $this->captchaCode = $Code;
+        $this->createTime = time();
+    }
+
+    function getCreateTime():int
+    {
+        return $this->createTime;
+    }
+
+    function getCodeHash($code = null,$time = null)
+    {
+        if(!$code){
+            $code = $this->captchaCode;
+        }
+        if(!$time){
+            $time = $this->createTime;
+        }
+        return substr(md5($code.$time),8,16);
     }
 
     /**
@@ -37,7 +53,7 @@ class Result
      */
     function getImageByte()
     {
-        return $this->CaptchaByte;
+        return $this->captchaByte;
     }
 
     /**
@@ -47,8 +63,8 @@ class Result
      */
     function getImageBase64()
     {
-        $base64Data = base64_encode($this->CaptchaByte);
-        $Mime = $this->CaptchaMime;
+        $base64Data = base64_encode($this->captchaByte);
+        $Mime = $this->captchaMime;
         return "data:{$Mime};base64,{$base64Data}";
     }
 
@@ -59,7 +75,7 @@ class Result
      */
     function getImageCode()
     {
-        return $this->CaptchaCode;
+        return $this->captchaCode;
     }
 
     /**
@@ -68,18 +84,6 @@ class Result
      */
     function getImageMime()
     {
-        return $this->CaptchaMime;
-    }
-
-    /**
-     * 获取验证码文件路径
-     * @author: eValor < master@evalor.cn >
-     */
-    function getImageFile()
-    {
-        if(!file_exists($this->CaptchaFile)){
-            file_put_contents($this->CaptchaFile, $this->CaptchaByte);
-        }
-        return $this->CaptchaFile;
+        return $this->captchaMime;
     }
 }

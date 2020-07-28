@@ -1,11 +1,4 @@
 <?php
-// +----------------------------------------------------------------------
-// | easySwoole [ use swoole easily just like echo "hello world" ]
-// +----------------------------------------------------------------------
-// | WebSite: https://www.easyswoole.com
-// +----------------------------------------------------------------------
-// | Welcome Join QQGroup 633921431
-// +----------------------------------------------------------------------
 
 namespace EasySwoole\VerifyCode;
 
@@ -80,14 +73,13 @@ class VerifyCode
         // 输出验证码结果集
         $this->temp = rtrim(str_replace('\\', '/', $this->temp), '/') . '/';
         mt_srand();
-        $filePath = $this->temp . date('YmdHis') . rand(1000,9999) .'.'.MIME::getExtensionName($this->mime);
         $func = 'image' . MIME::getExtensionName($this->mime);
         ob_start();
         $func($this->imInstance);
         $file = ob_get_contents();
         ob_end_clean();
         imagedestroy($this->imInstance);
-        return new Result($file, $Code, $this->mime, $filePath);
+        return new Result($file, $Code, $this->mime);
     }
 
     /**
