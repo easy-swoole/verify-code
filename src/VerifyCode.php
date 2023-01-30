@@ -9,6 +9,7 @@ class VerifyCode
 {
     protected $conf;
     protected $imInstance;
+    private int $length;
 
     /**
      * VerifyCode constructor.
