@@ -30,7 +30,6 @@ class Config extends SplBean
     public $imageH    = null;          // 图片高度
     public $fonts     = [];            // 额外字体
     public $fontSize  = 25;            // 字体大小
-    public $length    = 4;             // 生成位数
     public $mime      = MIME::PNG;     // 设置类型
     public $temp      = '/tmp';  // 设置缓存目录
 
@@ -147,14 +146,16 @@ class Config extends SplBean
      * @param array|string $fonts
      * @return Config
      */
-    public function setFonts($fonts)
+    public function addFonts($fonts)
     {
-        if (is_string($fonts)) array_push($this->fonts, $fonts);
+        if (is_string($fonts)) {
+            $this->fonts[] = $fonts;
+        }
         if (is_array($fonts) && !empty($fonts)) {
             if (empty($this->fonts)) {
                 $this->fonts = $fonts;
             } else {
-                array_merge($this->fonts, $fonts);
+                $this->fonts = array_merge($this->fonts, $fonts);
             }
         }
         return $this;
@@ -171,27 +172,6 @@ class Config extends SplBean
         return $this;
     }
 
-    /**
-     * 设置验证码长度
-     * @param int $length
-     * @return Config
-     */
-    public function setLength($length)
-    {
-        $this->length = intval($length);
-        return $this;
-    }
-
-    /**
-     * 获取配置值
-     * @param $name
-     * @author : evalor <master@evalor.cn>
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        return $this->$name;
-    }
 
     /**
      * 十六进制转RGB
