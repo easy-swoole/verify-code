@@ -121,6 +121,11 @@ $Code = $VCode->DrawCode('MyCode'); // x2 ->drawCode
 
 生成好验证码后结果是一个`Result`类，可以使用`getImageBody`获取验证码的图片内容，使用`getImageStr`获得验证码字符，`getMineType`获得验证码的Mine信息
 
-### EasySwoole中
+### EasySwoole
+
+在控制器中输出
+
 ```
+$this->response()->withHeader("Content-Type",$code->getImageMime());
+$this->response()->write($code->getImageByte());
 ```
