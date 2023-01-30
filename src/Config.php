@@ -28,15 +28,9 @@ class Config extends SplBean
     public $backColor = null;          // 背景颜色
     public $imageL    = null;          // 图片宽度
     public $imageH    = null;          // 图片高度
-    public $fonts     = [];            // 额外字体
-    public $fontSize  = 25;            // 字体大小
+    public array $fonts     = [];            // 额外字体
+    public int $fontSize  = 25;            // 字体大小
     public $mime      = MIME::PNG;     // 设置类型
-    public $temp      = '/tmp';  // 设置缓存目录
-
-    public function setTemp($temp){
-        if (!is_dir($temp)) mkdir($temp,0755) && chmod($temp,0755);
-        $this->temp = $temp;
-    }
 
     /**
      * 设置图片格式

@@ -63,7 +63,6 @@ class VerifyCode
         }
 
         // 输出验证码结果集
-        $this->conf->temp = rtrim(str_replace('\\', '/', $this->conf->temp), '/') . '/';
         mt_srand();
         $func = 'image' . MIME::getExtensionName($this->conf->mime);
         ob_start();
