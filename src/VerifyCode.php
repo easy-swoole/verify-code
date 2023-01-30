@@ -17,7 +17,7 @@ class VerifyCode
     public function __construct($options = null)
     {
         // 传入了配置则使用配置文件
-        $this->conf = $options instanceof Conf ? $options : new Conf;
+        $this->conf = $options instanceof Config ? $options : new Config;
         $assetsPath = __DIR__ . '/assets/';
 
         // 合并字体库
@@ -52,7 +52,7 @@ class VerifyCode
         $Code = strval($Code);
 
         // 创建空白画布
-        $this->imInstance = imagecreate($this->imageL, $this->imageH);
+        $this->imInstance = imagecreate((int)$this->imageL, (int)$this->imageH);
         // 设置背景颜色
         $this->backColor = imagecolorallocate($this->imInstance, $this->backColor[0], $this->backColor[1], $this->backColor[2]);
         // 设置字体颜色
@@ -67,7 +67,7 @@ class VerifyCode
         for ($i = 0; $i < $this->length; $i++) {
             $codeNX += mt_rand($this->fontSize * 1.2, $this->fontSize * 1.4);
             // 写一个验证码字符
-            imagettftext($this->imInstance, $this->fontSize, mt_rand(-50, 50), $codeNX, $this->fontSize * 1.5, $this->fontColor, $this->useFont, $Code[$i]);
+            imagettftext($this->imInstance, $this->fontSize, mt_rand(-50, 50), $codeNX, (int)($this->fontSize * 1.5), $this->fontColor, $this->useFont, $Code[$i]);
         }
 
         // 输出验证码结果集

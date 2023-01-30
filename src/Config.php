@@ -17,12 +17,12 @@ use EasySwoole\Spl\SplBean;
  * @author  : evalor <master@evalor.cn>
  * @package Vendor\VerifyCode
  */
-class Conf extends SplBean
+class Config extends SplBean
 {
 
     public $charset   = '1234567890AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'; // 字母表
     public $useCurve  = false;         // 混淆曲线
-    public $useNoise  = false;         // 随机噪点
+    public $useNoise  = true;         // 随机噪点
     public $useFont   = null;          // 指定字体
     public $fontColor = null;          // 字体颜色
     public $backColor = null;          // 背景颜色
@@ -42,8 +42,8 @@ class Conf extends SplBean
     /**
      * 设置图片格式
      * @param $MimeType
-     * @author : evalor <master@evalor.cn>
-     * @return Conf
+     * @return Config
+     *@author : evalor <master@evalor.cn>
      */
     public function setMimeType($MimeType)
     {
@@ -55,7 +55,7 @@ class Conf extends SplBean
     /**
      * 设置字符集
      * @param string $charset
-     * @return Conf
+     * @return Config
      */
     public function setCharset($charset)
     {
@@ -66,7 +66,7 @@ class Conf extends SplBean
     /**
      * 开启混淆曲线
      * @param bool $useCurve
-     * @return Conf
+     * @return Config
      */
     public function setUseCurve($useCurve = true)
     {
@@ -77,7 +77,7 @@ class Conf extends SplBean
     /**
      * 开启噪点生成
      * @param bool $useNoise
-     * @return Conf
+     * @return Config
      */
     public function setUseNoise($useNoise = true)
     {
@@ -88,7 +88,7 @@ class Conf extends SplBean
     /**
      * 使用自定义字体
      * @param string $useFont
-     * @return Conf
+     * @return Config
      */
     public function setUseFont($useFont)
     {
@@ -99,7 +99,7 @@ class Conf extends SplBean
     /**
      * 设置文字颜色
      * @param array|string $fontColor
-     * @return Conf
+     * @return Config
      */
     public function setFontColor($fontColor)
     {
@@ -111,7 +111,7 @@ class Conf extends SplBean
     /**
      * 设置背景颜色
      * @param null $backColor
-     * @return Conf
+     * @return Config
      */
     public function setBackColor($backColor)
     {
@@ -123,7 +123,7 @@ class Conf extends SplBean
     /**
      * 设置图片宽度
      * @param int|string $imageL
-     * @return Conf
+     * @return Config
      */
     public function setImageWidth($imageL)
     {
@@ -134,7 +134,7 @@ class Conf extends SplBean
     /**
      * 设置图片高度
      * @param null $imageH
-     * @return Conf
+     * @return Config
      */
     public function setImageHeight($imageH)
     {
@@ -145,7 +145,7 @@ class Conf extends SplBean
     /**
      * 设置字体集
      * @param array|string $fonts
-     * @return Conf
+     * @return Config
      */
     public function setFonts($fonts)
     {
@@ -163,7 +163,7 @@ class Conf extends SplBean
     /**
      * 设置字体尺寸
      * @param int $fontSize
-     * @return Conf
+     * @return Config
      */
     public function setFontSize($fontSize)
     {
@@ -174,7 +174,7 @@ class Conf extends SplBean
     /**
      * 设置验证码长度
      * @param int $length
-     * @return Conf
+     * @return Config
      */
     public function setLength($length)
     {
