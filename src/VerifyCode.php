@@ -142,7 +142,7 @@ class VerifyCode
                 $py = $A * sin($w * $px + $f) + $b + $this->conf->imageH / 2; // y = Asin(ωx+φ) + b
                 $i = (int)($this->conf->fontSize / 5);
                 while ($i > 0) {
-                    imagesetpixel($this->imInstance, $px + $i, $py + $i, $this->conf->fontColor);
+                    imagesetpixel($this->imInstance, intval($px + $i), intval($py + $i), $this->conf->fontColor);
                     $i--;
                 }
             }
