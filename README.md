@@ -13,10 +13,10 @@ composer require easyswoole/verifycode=3.x
 组件本身提供了默认配置，即使不做任何设置也可以直接生成验证码，需要对验证码进行自定义配置可以使用组件提供的`Config`类进行动态配置
 
 ```
-// x1
+// v1.x
 use easySwoole\VerifyCode\Config;
 $config = new Config();
-// x2
+// v2.x
 use EasySwoole\VerifyCode\Config;
 $config = new Config();
 ```
@@ -113,10 +113,10 @@ $VCode = new VerifyCode($config);
 $VCode = new VerifyCode($config);
 
 // 随机生成验证码
-$Code = $VCode->DrawCode(); // x2 ->drawCode
+$Code = $VCode->DrawCode(); // v2.x ->drawCode
 
 // 生成指定验证码
-$Code = $VCode->DrawCode('MyCode'); // x2 ->drawCode
+$Code = $VCode->DrawCode('MyCode'); // v3.x, v2.x ->drawCode
 ```
 
 生成好验证码后结果是一个`Result`类，可以使用`getImageBody`获取验证码的图片内容，使用`getImageStr`获得验证码字符，`getMineType`获得验证码的Mine信息
