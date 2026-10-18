@@ -20,5 +20,11 @@
         "psr-4": {
             "EasySwoole\\VerifyCode\\": "src"
         }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5"
     }
 }

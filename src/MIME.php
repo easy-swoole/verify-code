@@ -17,9 +17,9 @@ namespace EasySwoole\VerifyCode;
  */
 class MIME
 {
-    const JPG = 'image/jpeg';
-    const PNG = 'image/png';
-    const GIF = 'image/gif';
+    public const JPG = 'image/jpeg';
+    public const PNG = 'image/png';
+    public const GIF = 'image/gif';
 
     /**
      * 获取对应Mime类型的后缀名称
@@ -27,9 +27,13 @@ class MIME
      * @param $Mime
      * @return mixed
      */
-    static function getExtensionName($Mime)
+    public static function getExtensionName(string $mime): string
     {
-        $extension = [MIME::JPG => 'jpeg', MIME::PNG => 'png', MIME::GIF => 'gif'];
-        return $extension[$Mime];
+        return match ($mime) {
+            self::JPG => 'jpeg',
+            self::PNG => 'png',
+            self::GIF => 'gif',
+            default => throw new \InvalidArgumentException("Unsupported MIME type: {$mime}"),
+        };
     }
 }

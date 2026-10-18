@@ -30,6 +30,10 @@ class Config extends SplBean
     public $imageH    = null;          // 图片高度
     public array $fonts     = [];            // 额外字体
     public int $fontSize  = 25;            // 字体大小
+    public int $length    = 4;             // 验证码长度
+    public int $complexityLevel = 1;       // 复杂度等级（1-9）
+    public int $decoyCodeCount = 2;        // 彩色模式下的干扰验证码数量
+    public int $decoyCharacterCount = 2;   // 每组干扰字符数量
     public $mime      = MIME::PNG;     // 设置类型
 
     /**
@@ -97,7 +101,7 @@ class Config extends SplBean
     public function setFontColor($fontColor)
     {
         if (is_string($fontColor)) $this->fontColor = $this->HEXToRGB($fontColor);
-        if (is_array($fontColor)) $this->fontColor = $fontColor;
+        if (is_array($fontColor)) $this->fontColor = $this->validateRGB($fontColor);
         return $this;
     }
 
@@ -109,7 +113,7 @@ class Config extends SplBean
     public function setBackColor($backColor)
     {
         if (is_string($backColor)) $this->backColor = $this->HEXToRGB($backColor);
-        if (is_array($backColor)) $this->backColor = $backColor;
+        if (is_array($backColor)) $this->backColor = $this->validateRGB($backColor);
         return $this;
     }
 
@@ -120,7 +124,11 @@ class Config extends SplBean
      */
     public function setImageWidth($imageL)
     {
-        $this->imageL = intval($imageL);
+        $imageL = intval($imageL);
+        if ($imageL <= 0) {
+            throw new \InvalidArgumentException('Image width must be greater than zero.');
+        }
+        $this->imageL = $imageL;
         return $this;
     }
 
@@ -131,7 +139,11 @@ class Config extends SplBean
      */
     public function setImageHeight($imageH)
     {
-        $this->imageH = intval($imageH);
+        $imageH = intval($imageH);
+        if ($imageH <= 0) {
+            throw new \InvalidArgumentException('Image height must be greater than zero.');
+        }
+        $this->imageH = $imageH;
         return $this;
     }
 
@@ -162,7 +174,54 @@ class Config extends SplBean
      */
     public function setFontSize($fontSize)
     {
-        $this->fontSize = intval($fontSize);
+        $fontSize = intval($fontSize);
+        if ($fontSize <= 0) {
+            throw new \InvalidArgumentException('Font size must be greater than zero.');
+        }
+        $this->fontSize = $fontSize;
+        return $this;
+    }
+
+    public function setLength($length)
+    {
+        $length = intval($length);
+        if ($length <= 0) {
+            throw new \InvalidArgumentException('Captcha length must be greater than zero.');
+        }
+        $this->length = $length;
+        return $this;
+    }
+
+    /**
+     * 设置验证码复杂度，1 最易识别，9 干扰最强
+     */
+    public function setComplexityLevel($level)
+    {
+        $level = intval($level);
+        if ($level < 1 || $level > 9) {
+            throw new \InvalidArgumentException('Complexity level must be between 1 and 9.');
+        }
+        $this->complexityLevel = $level;
+        return $this;
+    }
+
+    public function setDecoyCodeCount($count)
+    {
+        $count = intval($count);
+        if ($count < 1 || $count > 5) {
+            throw new \InvalidArgumentException('Decoy code count must be between 1 and 5.');
+        }
+        $this->decoyCodeCount = $count;
+        return $this;
+    }
+
+    public function setDecoyCharacterCount($count)
+    {
+        $count = intval($count);
+        if ($count < 1 || $count > 8) {
+            throw new \InvalidArgumentException('Decoy character count must be between 1 and 8.');
+        }
+        $this->decoyCharacterCount = $count;
         return $this;
     }
 
@@ -173,17 +232,19 @@ class Config extends SplBean
      * @author : evalor <master@evalor.cn>
      * @return array
      */
-    function HEXToRGB($hexColor)
+    private function HEXToRGB(string $hexColor): array
     {
-        $color = str_replace('#', '', $hexColor);
-        if (strlen($color) > 3) {
+        $color = ltrim($hexColor, '#');
+        if (!preg_match('/^(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/', $color)) {
+            throw new \InvalidArgumentException('Color must be a 3- or 6-digit hexadecimal value.');
+        }
+        if (strlen($color) === 6) {
             $rgb = array(
                 hexdec(substr($color, 0, 2)),
                 hexdec(substr($color, 2, 2)),
                 hexdec(substr($color, 4, 2))
             );
         } else {
-            $color = $hexColor;
             $r = substr($color, 0, 1) . substr($color, 0, 1);
             $g = substr($color, 1, 1) . substr($color, 1, 1);
             $b = substr($color, 2, 1) . substr($color, 2, 1);
@@ -194,5 +255,20 @@ class Config extends SplBean
             );
         }
         return $rgb;
+    }
+
+    private function validateRGB(array $color): array
+    {
+        if (count($color) !== 3) {
+            throw new \InvalidArgumentException('RGB color must contain exactly three values.');
+        }
+
+        $color = array_values(array_map('intval', $color));
+        foreach ($color as $value) {
+            if ($value < 0 || $value > 255) {
+                throw new \InvalidArgumentException('RGB values must be between 0 and 255.');
+            }
+        }
+        return $color;
     }
 }
