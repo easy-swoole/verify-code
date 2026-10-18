@@ -9,12 +9,7 @@
 
 namespace EasySwoole\VerifyCode;
 
-/**
- * 验证码结果类
- * Class Result
- * @author : evalor <master@evalor.cn>
- * @package easySwoole\VerifyCode
- */
+
 class Result
 {
     private string $captchaByte;  // 验证码图片

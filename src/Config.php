@@ -11,30 +11,28 @@ namespace EasySwoole\VerifyCode;
 
 use EasySwoole\Spl\SplBean;
 
-/**
- * 验证码配置文件
- * Class VerifyCodeConf
- * @author  : evalor <master@evalor.cn>
- * @package Vendor\VerifyCode
- */
+
 class Config extends SplBean
 {
 
-    public $charset   = '1234567890AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'; // 字母表
-    public $useCurve  = false;         // 混淆曲线
-    public $useNoise  = true;         // 随机噪点
-    public $useFont   = null;          // 指定字体
-    public $fontColor = null;          // 字体颜色
-    public $backColor = null;          // 背景颜色
-    public $imageL    = null;          // 图片宽度
-    public $imageH    = null;          // 图片高度
+    public string $charset = '1234567890AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz'; // 字母表
+    public bool $useCurve = false;     // 混淆曲线
+    public bool $useNoise = true;      // 随机噪点
+    public ?string $useFont = null;    // 指定字体
+    /** @var array{int, int, int}|null */
+    public ?array $fontColor = null;
+    /** @var array{int, int, int}|null */
+    public ?array $backColor = null;
+    public ?int $imageL = null;        // 图片宽度
+    public ?int $imageH = null;        // 图片高度
+    /** @var list<string> */
     public array $fonts     = [];            // 额外字体
     public int $fontSize  = 25;            // 字体大小
     public int $length    = 4;             // 验证码长度
     public int $complexityLevel = 1;       // 复杂度等级（1-9）
     public int $decoyCodeCount = 2;        // 彩色模式下的干扰验证码数量
     public int $decoyCharacterCount = 2;   // 每组干扰字符数量
-    public $mime      = MIME::PNG;     // 设置类型
+    public string $mime = MIME::PNG;   // 设置类型
 
     /**
      * 设置图片格式
@@ -42,7 +40,7 @@ class Config extends SplBean
      * @return Config
      *@author : evalor <master@evalor.cn>
      */
-    public function setMimeType($MimeType)
+    public function setMimeType(string $MimeType): static
     {
         $allowMime = [ MIME::PNG, MIME::GIF, MIME::JPG ];
         if (in_array($MimeType, $allowMime)) $this->mime = $MimeType;
@@ -54,9 +52,9 @@ class Config extends SplBean
      * @param string $charset
      * @return Config
      */
-    public function setCharset($charset)
+    public function setCharset(string $charset): static
     {
-        is_string($charset) && $this->charset = $charset;
+        $this->charset = $charset;
         return $this;
     }
 
@@ -65,9 +63,9 @@ class Config extends SplBean
      * @param bool $useCurve
      * @return Config
      */
-    public function setUseCurve($useCurve = true)
+    public function setUseCurve(bool $useCurve = true): static
     {
-        is_bool($useCurve) && $this->useCurve = $useCurve;
+        $this->useCurve = $useCurve;
         return $this;
     }
 
@@ -76,9 +74,9 @@ class Config extends SplBean
      * @param bool $useNoise
      * @return Config
      */
-    public function setUseNoise($useNoise = true)
+    public function setUseNoise(bool $useNoise = true): static
     {
-        is_bool($useNoise) && $this->useNoise = $useNoise;
+        $this->useNoise = $useNoise;
         return $this;
     }
 
@@ -87,9 +85,9 @@ class Config extends SplBean
      * @param string $useFont
      * @return Config
      */
-    public function setUseFont($useFont)
+    public function setUseFont(string $useFont): static
     {
-        is_string($useFont) && $this->useFont = $useFont;
+        $this->useFont = $useFont;
         return $this;
     }
 
@@ -98,7 +96,7 @@ class Config extends SplBean
      * @param array|string $fontColor
      * @return Config
      */
-    public function setFontColor($fontColor)
+    public function setFontColor(array|string $fontColor): static
     {
         if (is_string($fontColor)) $this->fontColor = $this->HEXToRGB($fontColor);
         if (is_array($fontColor)) $this->fontColor = $this->validateRGB($fontColor);
@@ -110,7 +108,7 @@ class Config extends SplBean
      * @param null $backColor
      * @return Config
      */
-    public function setBackColor($backColor)
+    public function setBackColor(array|string $backColor): static
     {
         if (is_string($backColor)) $this->backColor = $this->HEXToRGB($backColor);
         if (is_array($backColor)) $this->backColor = $this->validateRGB($backColor);
@@ -122,7 +120,7 @@ class Config extends SplBean
      * @param int|string $imageL
      * @return Config
      */
-    public function setImageWidth($imageL)
+    public function setImageWidth(int|string $imageL): static
     {
         $imageL = intval($imageL);
         if ($imageL <= 0) {
@@ -137,7 +135,7 @@ class Config extends SplBean
      * @param null $imageH
      * @return Config
      */
-    public function setImageHeight($imageH)
+    public function setImageHeight(int|string $imageH): static
     {
         $imageH = intval($imageH);
         if ($imageH <= 0) {
@@ -152,7 +150,7 @@ class Config extends SplBean
      * @param array|string $fonts
      * @return Config
      */
-    public function addFonts($fonts)
+    public function addFonts(array|string $fonts): static
     {
         if (is_string($fonts)) {
             $this->fonts[] = $fonts;
@@ -172,7 +170,7 @@ class Config extends SplBean
      * @param int $fontSize
      * @return Config
      */
-    public function setFontSize($fontSize)
+    public function setFontSize(int|string $fontSize): static
     {
         $fontSize = intval($fontSize);
         if ($fontSize <= 0) {
@@ -182,7 +180,7 @@ class Config extends SplBean
         return $this;
     }
 
-    public function setLength($length)
+    public function setLength(int|string $length): static
     {
         $length = intval($length);
         if ($length <= 0) {
@@ -195,7 +193,7 @@ class Config extends SplBean
     /**
      * 设置验证码复杂度，1 最易识别，9 干扰最强
      */
-    public function setComplexityLevel($level)
+    public function setComplexityLevel(int|string $level): static
     {
         $level = intval($level);
         if ($level < 1 || $level > 9) {
@@ -205,7 +203,7 @@ class Config extends SplBean
         return $this;
     }
 
-    public function setDecoyCodeCount($count)
+    public function setDecoyCodeCount(int|string $count): static
     {
         $count = intval($count);
         if ($count < 1 || $count > 5) {
@@ -215,7 +213,7 @@ class Config extends SplBean
         return $this;
     }
 
-    public function setDecoyCharacterCount($count)
+    public function setDecoyCharacterCount(int|string $count): static
     {
         $count = intval($count);
         if ($count < 1 || $count > 8) {

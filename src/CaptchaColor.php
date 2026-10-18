@@ -23,6 +23,7 @@ enum CaptchaColor: string
         };
     }
 
+    /** @return array{int, int, int} */
     public function rgb(): array
     {
         return match ($this) {
